@@ -1,4 +1,4 @@
-package com.example.technewsworks.data
+package com.example.technewsworks.data.datasource
 
 import com.example.technewsworks.data.models.Article
 import com.example.technewsworks.data.models.Source
