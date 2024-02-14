@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.example.technewsworks.ui.screens.home.HomeNavigation
 import com.example.technewsworks.ui.screens.home.HomeNavigation.Companion.homeScreen
+import com.example.technewsworks.ui.screens.news.NewsDetailNavigation.Companion.newsDetailsScreen
 
 @Composable
 fun TechNewsWorksApp() {
@@ -23,6 +24,7 @@ fun TechNewsWorksApp() {
             startDestination = HomeNavigation.route(),
         ) {
             homeScreen()
+            newsDetailsScreen()
         }
     }
 }
