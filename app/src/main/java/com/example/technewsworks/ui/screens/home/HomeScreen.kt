@@ -19,6 +19,7 @@ import com.example.technewsworks.R
 import com.example.technewsworks.data.datasource.MockData
 import com.example.technewsworks.data.models.Article
 import com.example.technewsworks.ui.components.NewsCard
+import com.example.technewsworks.ui.components.SimpleAppBar
 import com.example.technewsworks.ui.theme.TechNewsWorksTheme
 import com.example.technewsworks.ui.theme.pDimensions
 
@@ -33,7 +34,11 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     vm: HomeViewModel = HomeViewModel(),
 ) {
-    Scaffold { innerPadding ->
+    Scaffold(
+        topBar = {
+            SimpleAppBar(title = stringResource(id = R.string.app_name))
+        },
+    ) { innerPadding ->
         HomePage(
             modifier = modifier.padding(innerPadding),
             headlines = vm.headlines,

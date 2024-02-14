@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.technewsworks.ui.components.SimpleAppBar
 import com.example.technewsworks.ui.theme.TechNewsWorksTheme
 
 /**
@@ -22,7 +23,9 @@ fun NewsDetailScreen(
     modifier: Modifier = Modifier,
     vm: NewsDetailViewModel = NewsDetailViewModel(),
 ) {
-    Scaffold { innerPadding ->
+    Scaffold(
+        topBar = { SimpleAppBar(navigateUp = {}) },
+    ) { innerPadding ->
         NewsDetailPage(
             modifier = modifier.padding(innerPadding),
         )

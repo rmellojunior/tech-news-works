@@ -22,29 +22,27 @@ import com.example.technewsworks.ui.theme.TechNewsWorksTheme
  * Composable function that represents the SmallAppBar.
  * Small: For screens that don't require a lot of navigation or actions.
  *
- * @param title The title to be display to this app bar.
- * @param canNavigateBack If has screens to navigate back.
- * @param navigateUp Called when the back button is clicked.
  * @param modifier The Modifier to be applied to this app bar.
+ * @param title The title to be display to this app bar.
+ * @param navigateUp Called when the back button is clicked.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SimpleAppBar(
-    title: String,
-    canNavigateBack: Boolean,
-    navigateUp: () -> Unit,
     modifier: Modifier = Modifier,
+    title: String? = null,
+    navigateUp: (() -> Unit)? = null,
 ) {
     TopAppBar(
-        title = { Text(title) },
+        title = { title?.let{ Text(title) } },
         colors = topAppBarColors(
             containerColor = MaterialTheme.colorScheme.background,
             titleContentColor = MaterialTheme.colorScheme.onBackground
         ),
         modifier = modifier,
         navigationIcon = {
-            if (canNavigateBack) {
-                IconButton(onClick = navigateUp) {
+            navigateUp?.let {
+                IconButton(onClick = it) {
                     Icon(
                         imageVector = Icons.Filled.ArrowBack,
                         contentDescription = null,
@@ -70,7 +68,6 @@ internal fun ToolbarsPreview() {
         Surface {
             SimpleAppBar(
                 title = stringResource(id = R.string.app_name),
-                canNavigateBack = true,
                 navigateUp = {},
             )
         }
