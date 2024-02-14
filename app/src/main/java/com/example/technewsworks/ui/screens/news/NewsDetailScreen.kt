@@ -24,7 +24,7 @@ fun NewsDetailScreen(
     vm: NewsDetailViewModel = NewsDetailViewModel(),
 ) {
     Scaffold(
-        topBar = { SimpleAppBar(navigateUp = {}) },
+        topBar = { SimpleAppBar(navigateUp = vm.navigation::back) },
     ) { innerPadding ->
         NewsDetailPage(
             modifier = modifier.padding(innerPadding),

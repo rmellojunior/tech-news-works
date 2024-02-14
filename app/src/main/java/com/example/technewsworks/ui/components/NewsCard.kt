@@ -34,11 +34,11 @@ import com.example.technewsworks.ui.theme.pDimensions
 /**
  * Composable function that represents the headline card.
  *
- * @param title The title to be display in this list item.
- * @param author The author to be display in this list item.
- * @param date The date to be display in this list item.
- * @param onClick Called when this list item is clicked.
- * @param modifier The Modifier to be applied to this list item.
+ * @param title The title to be display in this card.
+ * @param author The author to be display in this card.
+ * @param date The date to be display in this card.
+ * @param onClick Called when this card is clicked.
+ * @param modifier The Modifier to be applied to this card.
  */
 @Composable
 fun NewsCard(
@@ -72,7 +72,7 @@ fun NewsCard(
  * Composable function that represents the image of the headline card.
  *
  * @param image The image of the headline card.
- * @param modifier The Modifier to be applied to this list item.
+ * @param modifier The Modifier to be applied to this card.
  */
 @Composable
 fun CardImage(
@@ -90,7 +90,7 @@ fun CardImage(
  * Composable function that represents the title of the headline card.
  *
  * @param title The title of the headline card.
- * @param modifier The Modifier to be applied to this list item.
+ * @param modifier The Modifier to be applied to this card.
  */
 @Composable
 fun CardTitle(
@@ -111,7 +111,7 @@ fun CardTitle(
  *
  * @param author The author of the headline card.
  * @param date The date of the headline card.
- * @param modifier The Modifier to be applied to this list item.
+ * @param modifier The Modifier to be applied to this card.
  */
 @Composable
 fun CardAuthorAndDate(
