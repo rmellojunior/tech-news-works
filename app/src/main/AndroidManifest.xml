@@ -13,7 +13,7 @@
         android:theme="@style/Theme.TechNewsWorks"
         tools:targetApi="31">
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.TechNewsWorksActivity"
             android:exported="true"
             android:theme="@style/Theme.TechNewsWorks">
             <intent-filter>

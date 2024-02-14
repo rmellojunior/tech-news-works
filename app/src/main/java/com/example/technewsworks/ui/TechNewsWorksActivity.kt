@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import com.example.technewsworks.TechNewsWorksApp
 import com.example.technewsworks.ui.theme.TechNewsWorksTheme
 
-class MainActivity : ComponentActivity() {
+class TechNewsWorksActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

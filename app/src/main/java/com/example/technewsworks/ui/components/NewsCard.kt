@@ -80,7 +80,7 @@ fun CardImage(
     Image(
         modifier = modifier,
         painter = image,
-        contentDescription = null, // decorative
+        contentDescription = null,
     )
 }
 
