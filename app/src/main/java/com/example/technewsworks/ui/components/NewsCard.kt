@@ -47,27 +47,21 @@ fun NewsCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    ElevatedCard(
-        onClick = onClick,
-        modifier = modifier.fillMaxWidth(),
-        elevation = CardDefaults.elevatedCardElevation(defaultElevation = MaterialTheme.pDimensions.cardElevation),
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(all = MaterialTheme.pDimensions.padding),
+        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.pDimensions.cardSpaceBy),
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(all = MaterialTheme.pDimensions.padding),
-            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.pDimensions.cardSpaceBy),
+        CardImage(
+            modifier = Modifier.weight(1f),
+            image = painterResource(id = R.drawable.ic_launcher_background),
+        )
+        Column(
+            modifier = Modifier.weight(3f),
         ) {
-            CardImage(
-                modifier = Modifier.weight(1f),
-                image = painterResource(id = R.drawable.ic_launcher_background),
-            )
-            Column(
-                modifier = Modifier.weight(3f),
-            ) {
-                CardTitle(title = title)
-                CardAuthorAndDate(author = author, date = date)
-            }
+            CardTitle(title = title)
+            CardAuthorAndDate(author = author, date = date)
         }
     }
 }
