@@ -42,6 +42,7 @@ fun HomeScreen(
         HomePage(
             modifier = modifier.padding(innerPadding),
             headlines = vm.headlines,
+            onNewsClicked = vm.navigation::toNewsDetail
         )
     }
 }
@@ -51,11 +52,13 @@ fun HomeScreen(
  *
  * @param modifier The Modifier to be applied to this page.
  * @param headlines Top headlines for a specific source.
+ * @param onNewsClicked Called when a headline is clicked.
  */
 @Composable
 fun HomePage(
     modifier: Modifier = Modifier,
     headlines: List<Article>,
+    onNewsClicked: () -> Unit,
 ) {
     Column(
         modifier = modifier,
@@ -71,7 +74,7 @@ fun HomePage(
                     title = it.title,
                     author = it.author,
                     date = it.publishedAt,
-                    onClick = {},
+                    onClick = onNewsClicked,
                 )
             }
         }
@@ -91,7 +94,10 @@ fun HomePage(
 internal fun HomePreview() {
     TechNewsWorksTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-            HomePage(headlines = MockData.articles)
+            HomePage(
+                headlines = MockData.articles,
+                onNewsClicked = {},
+            )
         }
     }
 }

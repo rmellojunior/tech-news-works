@@ -4,6 +4,7 @@ package com.example.technewsworks.ui.components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -48,9 +49,10 @@ fun NewsCard(
     modifier: Modifier = Modifier,
 ) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .padding(all = MaterialTheme.pDimensions.padding),
+            .padding(all = MaterialTheme.pDimensions.padding)
+            .clickable { onClick() },
         horizontalArrangement = Arrangement.spacedBy(MaterialTheme.pDimensions.cardSpaceBy),
     ) {
         CardImage(
