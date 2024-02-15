@@ -1,4 +1,4 @@
-package com.example.technewsworks
+package com.example.technewsworks.ui
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding

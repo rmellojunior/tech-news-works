@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.technewsworks.ui.components.SimpleAppBar
 import com.example.technewsworks.ui.theme.TechNewsWorksTheme
 
@@ -21,7 +22,7 @@ import com.example.technewsworks.ui.theme.TechNewsWorksTheme
 @Composable
 fun NewsDetailScreen(
     modifier: Modifier = Modifier,
-    vm: NewsDetailViewModel = NewsDetailViewModel(),
+    vm: NewsDetailViewModel = hiltViewModel(),
 ) {
     Scaffold(
         topBar = { SimpleAppBar(navigateUp = vm.navigation::back) },

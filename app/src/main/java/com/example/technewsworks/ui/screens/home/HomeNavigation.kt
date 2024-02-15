@@ -5,11 +5,11 @@ import androidx.navigation.compose.composable
 import com.example.technewsworks.ui.navigation.BaseNavigation
 import com.example.technewsworks.ui.navigation.Navigator
 import com.example.technewsworks.ui.navigation.NavigatorEvent
-import com.example.technewsworks.ui.navigation.NavigatorImpl
 import com.example.technewsworks.ui.screens.news.NewsDetailNavigation
+import javax.inject.Inject
 
-class HomeNavigation(
-    override val navigator: Navigator = NavigatorImpl,
+class HomeNavigation @Inject constructor(
+    override val navigator: Navigator,
 ) : BaseNavigation() {
     fun toNewsDetail() {
         navigator.navigate(
