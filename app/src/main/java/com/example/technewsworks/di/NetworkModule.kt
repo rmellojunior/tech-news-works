@@ -1,5 +1,6 @@
 package com.example.technewsworks.di
 
+import com.example.technewsworks.data.datasource.api.NetworkInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,20 +14,23 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
 
-    // TODO: Retrofit does get an instance of OkHttp by itself but does not perform any
-    //  customization of the OkHttpClient. If we want a custom one, we might need to customize the
-    //  client to take advantage of the flexibility of OkHttp.
-//    @Singleton
-//    @Provides
-//    fun providesOkHttpClient(): OkHttpClient {}
+    @Singleton
+    @Provides
+    fun provideNetworkInterceptor() : NetworkInterceptor = NetworkInterceptor()
+
+    @Singleton
+    @Provides
+    fun provideOkHttpClient(networkInterceptor: NetworkInterceptor): OkHttpClient =
+        OkHttpClient.Builder()
+            .addNetworkInterceptor(networkInterceptor)
+            .build()
 
     @Singleton
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
         Retrofit.Builder()
-//            .baseUrl()
+            .baseUrl("https://newsapi.org/v2/")
             .addConverterFactory(MoshiConverterFactory.create())
             .client(okHttpClient)
             .build()
-
 }

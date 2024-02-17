@@ -11,17 +11,20 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.technewsworks.R
-import com.example.technewsworks.data.datasource.MockData
+import com.example.technewsworks.data.datasource.mock.FakeNews
 import com.example.technewsworks.data.models.Article
 import com.example.technewsworks.ui.components.NewsCard
 import com.example.technewsworks.ui.components.SimpleAppBar
 import com.example.technewsworks.ui.theme.TechNewsWorksTheme
 import com.example.technewsworks.ui.theme.pDimensions
+import kotlinx.coroutines.Dispatchers
 
 /**
  * Composable function that represents the home screen.
@@ -34,6 +37,8 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     vm: HomeViewModel = hiltViewModel(),
 ) {
+    val topHeadlines by vm.topHeadlines.collectAsState(initial = emptyList(), context = Dispatchers.IO)
+
     Scaffold(
         topBar = {
             SimpleAppBar(title = stringResource(id = R.string.app_name))
@@ -41,7 +46,7 @@ fun HomeScreen(
     ) { innerPadding ->
         HomePage(
             modifier = modifier.padding(innerPadding),
-            headlines = vm.headlines,
+            headlines = topHeadlines,
             onNewsClicked = vm.navigation::toNewsDetail
         )
     }
@@ -71,9 +76,9 @@ fun HomePage(
         LazyColumn {
             items(headlines) {
                 NewsCard(
-                    title = it.title,
-                    author = it.author,
-                    date = it.publishedAt,
+                    title = it.title ?: "",
+                    author = it.author ?: "",
+                    date = it.publishedAt ?: "",
                     onClick = onNewsClicked,
                 )
             }
@@ -95,7 +100,7 @@ internal fun HomePreview() {
     TechNewsWorksTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
             HomePage(
-                headlines = MockData.articles,
+                headlines = FakeNews.articles,
                 onNewsClicked = {},
             )
         }

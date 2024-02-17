@@ -6,5 +6,5 @@ package com.example.technewsworks.data.models
  * @property name The name of the source.
  */
 class Source(
-    val name: String,
+    val name: String? = null,
 )

@@ -9,8 +9,8 @@ package com.example.technewsworks.data.models
  * @property publishedAt The date and time that the article was published, in UTC (+000).
  */
 class Article(
-    val source: Source,
-    val author: String,
-    val title: String,
-    val publishedAt: String,
+    val source: Source? = null,
+    val author: String? = null,
+    val title: String? = null,
+    val publishedAt: String? = null,
 )

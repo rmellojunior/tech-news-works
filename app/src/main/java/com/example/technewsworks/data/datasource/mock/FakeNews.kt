@@ -1,9 +1,12 @@
-package com.example.technewsworks.data.datasource
+package com.example.technewsworks.data.datasource.mock
 
 import com.example.technewsworks.data.models.Article
 import com.example.technewsworks.data.models.Source
 
-object MockData {
+/**
+ * Mock data.
+ */
+object FakeNews {
     val articles = listOf(
         Article(
             source = Source(
