@@ -10,4 +10,8 @@ interface HeadlinesApiService {
     suspend fun getTopHeadlines(
         @Query("country") country: String,
     ): Response<NewsApiResponse>
+
+    companion object {
+        val NEWS_PROVIDER = "News API"
+    }
 }

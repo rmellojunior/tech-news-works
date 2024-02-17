@@ -15,6 +15,8 @@ class HeadlinesRepo @Inject constructor(
     private val mockData: FakeNews,
     private val api: HeadlinesApiService,
 ) {
+    fun getNewsProvider(): String = HeadlinesApiService.NEWS_PROVIDER
+
     fun getTopHeadlines(
         country: CountryCode,
     ): Flow<List<Article>> = flow {

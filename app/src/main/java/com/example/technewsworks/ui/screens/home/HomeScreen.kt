@@ -79,6 +79,7 @@ fun HomePage(
                     title = it.title ?: "",
                     author = it.author ?: "",
                     date = it.publishedAt ?: "",
+                    imageUrl = it.urlToImage ?: "",
                     onClick = onNewsClicked,
                 )
             }

@@ -11,5 +11,6 @@ class HomeViewModel @Inject constructor(
     val navigation: HomeNavigation,
     private val headlinesRepo: HeadlinesRepo,
 ) : ViewModel() {
+    val newsProvider = headlinesRepo.getNewsProvider()
     val topHeadlines = headlinesRepo.getTopHeadlines(country = CountryCode.UNITED_STATES)
 }
