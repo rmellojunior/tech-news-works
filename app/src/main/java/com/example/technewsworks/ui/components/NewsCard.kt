@@ -21,6 +21,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.technewsworks.R
 import com.example.technewsworks.data.datasource.mock.FakeNews
+import com.example.technewsworks.data.models.Article
 import com.example.technewsworks.ui.theme.TechNewsWorksTheme
 import com.example.technewsworks.ui.theme.pDimensions
 import com.skydoves.landscapist.ImageOptions
@@ -29,19 +30,12 @@ import com.skydoves.landscapist.glide.GlideImage
 /**
  * Composable function that represents the headline card.
  *
- * @param title The title to be display in this card.
- * @param author The author to be display in this card.
- * @param date The date to be display in this card.
- * @param imageUrl The URL to the relevant image to be display in this card.
  * @param onClick Called when this card is clicked.
  * @param modifier The Modifier to be applied to this card.
  */
 @Composable
 fun NewsCard(
-    title: String,
-    author: String,
-    date: String,
-    imageUrl: String,
+    article: Article,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -52,17 +46,17 @@ fun NewsCard(
             .clickable { onClick() },
         horizontalArrangement = Arrangement.spacedBy(MaterialTheme.pDimensions.cardSpaceBy),
     ) {
-        CardImage(
+        NewsImage(
             modifier = Modifier
                 .weight(1f)
                 .aspectRatio(1f),
-            imageUrl = imageUrl,
+            imageUrl = article.urlToImage,
         )
         Column(
             modifier = Modifier.weight(3f),
         ) {
-            CardTitle(title = title)
-            CardAuthorAndDate(author = author, date = date)
+            NewsTitle(title = article.title ?: "")
+            NewsAuthorAndDate(author = article.author ?: "", date = article.publishedAt ?: "")
         }
     }
 }
@@ -74,8 +68,8 @@ fun NewsCard(
  * @param modifier The Modifier to be applied to this card.
  */
 @Composable
-fun CardImage(
-    imageUrl: String,
+fun NewsImage(
+    imageUrl: String?,
     modifier: Modifier = Modifier
 ) {
     GlideImage(
@@ -86,17 +80,20 @@ fun CardImage(
             alignment = Alignment.Center,
         ),
         previewPlaceholder = painterResource(id = R.drawable.ic_launcher_background),
+        failure = {
+            painterResource(id = R.drawable.ic_launcher_background)
+        },
     )
 }
 
 /**
  * Composable function that represents the title of the headline card.
  *
- * @param title The title of the card.
+ * @param title The title to be display in this card
  * @param modifier The Modifier to be applied to this card.
  */
 @Composable
-fun CardTitle(
+fun NewsTitle(
     title: String,
     modifier: Modifier = Modifier
 ) {
@@ -112,12 +109,12 @@ fun CardTitle(
 /**
  * Composable function that represents the author and date of the headline card.
  *
- * @param author The author of the card.
- * @param date The date of the card.
+ * @param author The author to be display in this card.
+ * @param date The date to be display in this card.
  * @param modifier The Modifier to be applied to this card.
  */
 @Composable
-fun CardAuthorAndDate(
+fun NewsAuthorAndDate(
     author: String,
     date: String,
     modifier: Modifier = Modifier
@@ -149,10 +146,7 @@ fun NewsCardPreview() {
     TechNewsWorksTheme {
         Surface {
             NewsCard(
-                title = FakeNews.articles[0].title!!,
-                author = FakeNews.articles[0].author!!,
-                date = FakeNews.articles[0].publishedAt!!,
-                imageUrl = "",
+                article = FakeNews.articles[0],
                 onClick = {},
             )
         }

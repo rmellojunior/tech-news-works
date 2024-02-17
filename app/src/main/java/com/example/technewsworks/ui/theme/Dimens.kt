@@ -8,6 +8,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 data class Dimensions(
+    val mediumSpacerSize: Dp = 16.dp,
+    val smallSpacerSize: Dp = 8.dp,
+
     val padding: Dp = 12.dp,
 
     // card

@@ -76,10 +76,7 @@ fun HomePage(
         LazyColumn {
             items(headlines) {
                 NewsCard(
-                    title = it.title ?: "",
-                    author = it.author ?: "",
-                    date = it.publishedAt ?: "",
-                    imageUrl = it.urlToImage ?: "",
+                    article = it,
                     onClick = onNewsClicked,
                 )
             }
