@@ -5,18 +5,18 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.PagingData
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.technewsworks.R
 import com.example.technewsworks.data.datasource.mock.FakeNews
 import com.example.technewsworks.data.models.Article
@@ -25,6 +25,7 @@ import com.example.technewsworks.ui.components.NewsCard
 import com.example.technewsworks.ui.components.SimpleAppBar
 import com.example.technewsworks.ui.theme.TechNewsWorksTheme
 import com.example.technewsworks.ui.theme.pDimensions
+import kotlinx.coroutines.flow.flowOf
 
 /**
  * Composable function that represents the home screen.
@@ -37,21 +38,20 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     vm: HomeViewModel = hiltViewModel(),
 ) {
-    val uiState by vm.uiState.collectAsState()
+    val newsProvider = vm.getNewsProvider()
+    val articles = vm.getTopHeadlines().collectAsLazyPagingItems()
 
     Scaffold(
         topBar = {
-            SimpleAppBar(title = stringResource(id = R.string.app_name))
+            SimpleAppBar(title = newsProvider)
         },
     ) { innerPadding ->
-        when (uiState) {
-            is HomeUiState.Loading -> Loading(modifier = Modifier.fillMaxSize())
-            is HomeUiState.Success -> HomePage(
-                modifier = modifier.padding(innerPadding),
-                headlines = (uiState as HomeUiState.Success).topHeadlines,
-                onNewsClicked = { vm.navigation.toNewsDetail(it) }
-            )
-        }
+        if (articles.itemCount == 0) Loading(modifier = Modifier.fillMaxSize())
+        else HomePage(
+            modifier = modifier.padding(innerPadding),
+            topHeadlines = articles,
+            onNewsClicked = { vm.navigation.toNewsDetail(it) },
+        )
     }
 }
 
@@ -59,13 +59,13 @@ fun HomeScreen(
  * Composable function that represents the home page.
  *
  * @param modifier The Modifier to be applied to this page.
- * @param headlines Top headlines for a specific source.
+ * @param topHeadlines Top headlines for a specific source.
  * @param onNewsClicked Called when a headline is clicked.
  */
 @Composable
 fun HomePage(
     modifier: Modifier = Modifier,
-    headlines: List<Article>,
+    topHeadlines: LazyPagingItems<Article>,
     onNewsClicked: (Article) -> Unit,
 ) {
     Column(
@@ -77,10 +77,11 @@ fun HomePage(
             style = MaterialTheme.typography.titleMedium
         )
         LazyColumn {
-            items(headlines) {
+            items(topHeadlines.itemCount) { idx ->
+                val article = topHeadlines[idx] ?: Article()
                 NewsCard(
-                    article = it,
-                    onClick = { onNewsClicked(it) },
+                    article = article,
+                    onClick = { onNewsClicked(article) },
                 )
             }
         }
@@ -101,7 +102,7 @@ internal fun HomePreview() {
     TechNewsWorksTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
             HomePage(
-                headlines = FakeNews.articles,
+                topHeadlines = flowOf(PagingData.from(FakeNews.articles)).collectAsLazyPagingItems(),
                 onNewsClicked = {},
             )
         }
