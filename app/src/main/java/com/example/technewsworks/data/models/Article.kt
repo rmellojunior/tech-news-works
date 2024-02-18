@@ -1,5 +1,8 @@
 package com.example.technewsworks.data.models
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
 /**
  * Article
  *
@@ -12,6 +15,7 @@ package com.example.technewsworks.data.models
  * @property content The unformatted content of the article, where available. This is truncated
  * to 200 chars.
  */
+@Parcelize
 class Article(
     val source: Source? = null,
     val author: String? = null,
@@ -20,4 +24,4 @@ class Article(
     val urlToImage: String? = null,
     val publishedAt: String? = null,
     val content: String? = null,
-)
+): Parcelable

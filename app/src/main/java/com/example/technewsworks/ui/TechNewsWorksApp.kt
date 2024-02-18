@@ -8,7 +8,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.example.technewsworks.ui.TechNewsWorksViewModel
 import com.example.technewsworks.ui.navigation.NavigatorEvent
 import com.example.technewsworks.ui.screens.home.HomeNavigation
 import com.example.technewsworks.ui.screens.home.HomeNavigation.Companion.homeScreen
@@ -25,10 +24,17 @@ fun TechNewsWorksApp(
         viewModel.navigator.destinations.collect {
             when(it) {
                 is NavigatorEvent.NavigateUp -> navController.navigateUp()
-                is NavigatorEvent.Directions -> navController.navigate(
-                    route = it.destination,
-                    navOptions = it.navOptions,
-                )
+                is NavigatorEvent.Directions -> {
+                    val savedStateHandle = navController.currentBackStackEntry?.savedStateHandle
+                    it.args?.forEach { arg ->
+                        savedStateHandle?.set(arg.key, arg.value)
+                    }
+
+                    navController.navigate(
+                        route = it.destination,
+                        navOptions = it.navOptions,
+                    )
+                }
             }
         }
     }
@@ -42,7 +48,7 @@ fun TechNewsWorksApp(
             startDestination = HomeNavigation.route(),
         ) {
             homeScreen()
-            newsDetailsScreen()
+            newsDetailsScreen(navController)
         }
     }
 }

@@ -47,7 +47,7 @@ fun HomeScreen(
         HomePage(
             modifier = modifier.padding(innerPadding),
             headlines = topHeadlines,
-            onNewsClicked = vm.navigation::toNewsDetail
+            onNewsClicked = { vm.navigation.toNewsDetail(it) }
         )
     }
 }
@@ -63,7 +63,7 @@ fun HomeScreen(
 fun HomePage(
     modifier: Modifier = Modifier,
     headlines: List<Article>,
-    onNewsClicked: () -> Unit,
+    onNewsClicked: (Article) -> Unit,
 ) {
     Column(
         modifier = modifier,
@@ -77,7 +77,7 @@ fun HomePage(
             items(headlines) {
                 NewsCard(
                     article = it,
-                    onClick = onNewsClicked,
+                    onClick = { onNewsClicked(it) },
                 )
             }
         }

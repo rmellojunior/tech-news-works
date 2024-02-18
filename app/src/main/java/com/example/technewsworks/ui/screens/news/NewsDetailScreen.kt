@@ -32,13 +32,14 @@ import com.example.technewsworks.ui.theme.pDimensions
 fun NewsDetailScreen(
     modifier: Modifier = Modifier,
     vm: NewsDetailViewModel = hiltViewModel(),
+    article: Article,
 ) {
     Scaffold(
         topBar = { SimpleAppBar(navigateUp = vm.navigation::back) },
     ) { innerPadding ->
         NewsDetailPage(
             modifier = modifier.padding(innerPadding),
-            news = vm.article,
+            article = article,
         )
     }
 }
@@ -50,7 +51,7 @@ fun NewsDetailScreen(
  */
 @Composable
 fun NewsDetailPage(
-    news: Article,
+    article: Article,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -58,16 +59,16 @@ fun NewsDetailPage(
     ) {
         NewsImage(
             modifier = Modifier.fillMaxWidth(),
-            imageUrl = news.urlToImage,
+            imageUrl = article.urlToImage,
         )
         Spacer(Modifier.height(MaterialTheme.pDimensions.mediumSpacerSize))
-        Text(text = news.title ?: "", style = MaterialTheme.typography.headlineLarge)
+        Text(text = article.title ?: "", style = MaterialTheme.typography.headlineLarge)
         Spacer(Modifier.height(MaterialTheme.pDimensions.smallSpacerSize))
-        news.description?.let {
+        article.description?.let {
             Text(text = it, style = MaterialTheme.typography.bodyMedium)
             Spacer(Modifier.height(MaterialTheme.pDimensions.mediumSpacerSize))
         }
-        news.content?.let {
+        article.content?.let {
             Text(text = it, style = MaterialTheme.typography.bodyLarge)
         }
     }
@@ -87,7 +88,7 @@ internal fun NewsDetailPreview() {
     TechNewsWorksTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
             NewsDetailPage(
-                news = FakeNews.articles[0],
+                article = FakeNews.articles[0],
             )
         }
     }
