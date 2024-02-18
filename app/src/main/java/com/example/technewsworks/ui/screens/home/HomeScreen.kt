@@ -20,11 +20,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.technewsworks.R
 import com.example.technewsworks.data.datasource.mock.FakeNews
 import com.example.technewsworks.data.models.Article
+import com.example.technewsworks.ui.components.Loading
 import com.example.technewsworks.ui.components.NewsCard
 import com.example.technewsworks.ui.components.SimpleAppBar
 import com.example.technewsworks.ui.theme.TechNewsWorksTheme
 import com.example.technewsworks.ui.theme.pDimensions
-import kotlinx.coroutines.Dispatchers
 
 /**
  * Composable function that represents the home screen.
@@ -37,18 +37,21 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     vm: HomeViewModel = hiltViewModel(),
 ) {
-    val topHeadlines by vm.topHeadlines.collectAsState(initial = emptyList(), context = Dispatchers.IO)
+    val uiState by vm.uiState.collectAsState()
 
     Scaffold(
         topBar = {
             SimpleAppBar(title = stringResource(id = R.string.app_name))
         },
     ) { innerPadding ->
-        HomePage(
-            modifier = modifier.padding(innerPadding),
-            headlines = topHeadlines,
-            onNewsClicked = { vm.navigation.toNewsDetail(it) }
-        )
+        when (uiState) {
+            is HomeUiState.Loading -> Loading(modifier = Modifier.fillMaxSize())
+            is HomeUiState.Success -> HomePage(
+                modifier = modifier.padding(innerPadding),
+                headlines = (uiState as HomeUiState.Success).topHeadlines,
+                onNewsClicked = { vm.navigation.toNewsDetail(it) }
+            )
+        }
     }
 }
 

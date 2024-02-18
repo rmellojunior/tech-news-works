@@ -17,13 +17,13 @@ class HeadlinesRepo @Inject constructor(
 ) {
     fun getNewsProvider(): String = HeadlinesApiService.NEWS_PROVIDER
 
-    fun getTopHeadlines(
+    suspend fun getTopHeadlines(
         country: CountryCode,
-    ): Flow<List<Article>> = flow {
+    ): List<Article> {
         val response = api.getTopHeadlines(
             country = country.code
         )
-
-        emit(response.body()?.articles ?: listOf())
+        // TODO: handle response
+        return response.body()?.articles!!
     }
 }
