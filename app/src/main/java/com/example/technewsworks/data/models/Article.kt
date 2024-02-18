@@ -1,6 +1,9 @@
 package com.example.technewsworks.data.models
 
 import android.os.Parcelable
+import com.example.technewsworks.domain.extensions.formatDate
+import com.example.technewsworks.utils.DEFAULT_ISO_8601_DATE_TIME_FORMAT
+import com.example.technewsworks.utils.DEFAULT_UI_VERBOSE_DATE_FORMAT
 import kotlinx.android.parcel.Parcelize
 
 /**
@@ -24,4 +27,9 @@ class Article(
     val urlToImage: String? = null,
     val publishedAt: String? = null,
     val content: String? = null,
-): Parcelable
+): Parcelable {
+    fun publishedAtFormatted(
+        formatInput: String = DEFAULT_ISO_8601_DATE_TIME_FORMAT,
+        formatOutput: String = DEFAULT_UI_VERBOSE_DATE_FORMAT,
+    ): String? = publishedAt?.formatDate(formatInput, formatOutput)
+}

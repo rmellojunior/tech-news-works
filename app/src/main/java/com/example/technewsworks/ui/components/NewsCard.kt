@@ -56,7 +56,7 @@ fun NewsCard(
             modifier = Modifier.weight(3f),
         ) {
             NewsTitle(title = article.title ?: "")
-            NewsAuthorAndDate(author = article.author ?: "", date = article.publishedAt ?: "")
+            NewsAuthorAndDate(author = article.author ?: "", date = article.publishedAtFormatted() ?: "")
         }
     }
 }
