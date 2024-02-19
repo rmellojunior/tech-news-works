@@ -38,12 +38,11 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     vm: HomeViewModel = hiltViewModel(),
 ) {
-    val newsProvider = vm.getNewsProvider()
     val articles = vm.getTopHeadlines().collectAsLazyPagingItems()
 
     Scaffold(
         topBar = {
-            SimpleAppBar(title = newsProvider)
+            SimpleAppBar(title = stringResource(id = R.string.home_provider))
         },
     ) { innerPadding ->
         if (articles.itemCount == 0) Loading(modifier = Modifier.fillMaxSize())

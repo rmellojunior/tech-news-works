@@ -13,8 +13,6 @@ class HeadlinesRepo @Inject constructor(
     private val mockData: FakeNews,
     private val apiService: HeadlinesApiService,
 ) {
-    fun getNewsProvider(): String = HeadlinesApiService.NEWS_PROVIDER
-
     fun getTopHeadlines(
         pageSize: Int = 5,
     ) = Pager(

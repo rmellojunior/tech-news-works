@@ -23,13 +23,6 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-
-        // securing API_KEY (basic approach)
-        val keystoreFile = project.rootProject.file("local.properties")
-        val properties = Properties()
-        properties.load(keystoreFile.inputStream())
-
-        buildConfigField("String", "API_KEY", properties.getProperty("API_KEY") ?: "")
     }
 
     buildTypes {
@@ -58,6 +51,27 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
+
+    flavorDimensions += "source"
+    productFlavors {
+        create("lite") {
+            dimension = "source"
+
+            // securing API_KEY (basic approach)
+            val properties = Properties()
+            properties.load(file("./src/main/local.properties").inputStream())
+            buildConfigField("String", "API_KEY", properties.getProperty("API_KEY") ?: "")
+        }
+        create("premium") {
+            dimension = "source"
+            applicationIdSuffix = ".premium"
+
+            // securing API_KEY (basic approach)
+            val properties = Properties()
+            properties.load(file("./src/premium/local.properties").inputStream())
+            buildConfigField("String", "API_KEY", properties.getProperty("API_KEY") ?: "")
         }
     }
 }

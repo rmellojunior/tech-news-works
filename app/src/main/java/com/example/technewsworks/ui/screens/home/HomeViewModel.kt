@@ -12,6 +12,5 @@ class HomeViewModel @Inject constructor(
     val navigation: HomeNavigation,
     private val headlinesRepo: HeadlinesRepo,
 ) : ViewModel() {
-    fun getNewsProvider() = headlinesRepo.getNewsProvider()
     fun getTopHeadlines() = headlinesRepo.getTopHeadlines().cachedIn(viewModelScope)
 }

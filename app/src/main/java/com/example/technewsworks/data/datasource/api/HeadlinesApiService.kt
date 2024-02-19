@@ -13,8 +13,4 @@ interface HeadlinesApiService {
         @Query("pageSize") pageSize: Int = 10,
         @Query("country") country: String = CountryCode.UNITED_STATES.code,
     ): Response<NewsApiResponse>
-
-    companion object {
-        const val NEWS_PROVIDER = "News API"
-    }
 }

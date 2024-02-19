@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">TechNewsWorks</string>
 
-    <string name="home_provider">News Api</string>
+    <string name="home_provider">Flavor Api premium</string>
     <string name="home_label">Top headlines for you</string>
 
     <!--  CARD  -->
