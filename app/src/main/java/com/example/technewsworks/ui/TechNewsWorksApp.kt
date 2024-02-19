@@ -9,7 +9,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.example.technewsworks.ui.navigation.NavigatorEvent
-import com.example.technewsworks.ui.screens.home.HomeNavigation
+import com.example.technewsworks.ui.screens.biometric.BiometricNavigation
+import com.example.technewsworks.ui.screens.biometric.BiometricNavigation.Companion.biometricScreen
 import com.example.technewsworks.ui.screens.home.HomeNavigation.Companion.homeScreen
 import com.example.technewsworks.ui.screens.news.NewsDetailNavigation.Companion.newsDetailsScreen
 
@@ -45,8 +46,9 @@ fun TechNewsWorksApp(
         NavHost(
             modifier = Modifier.padding(innerPadding),
             navController = navController,
-            startDestination = HomeNavigation.route(),
+            startDestination = BiometricNavigation.route(),
         ) {
+            biometricScreen()
             homeScreen()
             newsDetailsScreen(navController)
         }
