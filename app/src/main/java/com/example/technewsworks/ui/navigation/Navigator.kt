@@ -4,5 +4,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface Navigator {
     val destinations: Flow<NavigatorEvent>
-    fun navigate(navigatorEvent: NavigatorEvent): Boolean
+    fun navigate(navigatorEvent: NavigatorEvent)
 }

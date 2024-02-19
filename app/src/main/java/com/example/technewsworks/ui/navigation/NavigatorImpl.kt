@@ -7,7 +7,7 @@ object NavigatorImpl : Navigator {
     private val navEvents = Channel<NavigatorEvent>()
     override val destinations = navEvents.receiveAsFlow()
 
-    override fun navigate(navigatorEvent: NavigatorEvent): Boolean {
-        return navEvents.trySend(navigatorEvent).isSuccess
+    override fun navigate(navigatorEvent: NavigatorEvent) {
+        navEvents.trySend(navigatorEvent)
     }
 }
