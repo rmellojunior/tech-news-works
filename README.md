@@ -17,7 +17,7 @@ and a detail page for headlines.
 
 ### Biometrics
 
-Package [`com.example.technewsworks.ui.biometric`][1]
+Package [`com.example.technewsworks.ui.screens.biometric`][1]
 
 This screen shows how to check if the device has a biometrics and if it’s configured in the device.
 
@@ -30,11 +30,11 @@ See how to:
 * Display the biometric prompt.
 * Use default Material's `Typography` and `ColorScheme` to style the text.
 
-[1]: app/src/main/java/com/example/technewsworks/ui/biometric
+[1]: app/src/main/java/com/example/technewsworks/ui/screens/biometric
 
 ### Top headlines list
 
-Package [`com.example.technewsworks.ui.home`][2]
+Package [`com.example.technewsworks.ui.screens.home`][2]
 
 This screen shows how to create different custom Composable functions and combine them in a list
 that scrolls vertically.
@@ -46,15 +46,15 @@ See how to:
 * Use Glide for download and chace images.
 * Use default Material's `Typography` and `ColorScheme` to style the text.
 
-[2]: app/src/main/java/com/example/technewsworks/ui/home
+[2]: app/src/main/java/com/example/technewsworks/ui/screens/home
 
 ### News detail
 
-Package [`com.example.technewsworks.ui.news`][3]
+Package [`com.example.technewsworks.ui.screens.news`][3]
 
 This screen simple shows the news detail.
 
-[3]: app/src/main/java/com/example/technewsworks/ui/news
+[3]: app/src/main/java/com/example/technewsworks/ui/screens/news
 
 ### Data
 
