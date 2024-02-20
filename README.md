@@ -6,7 +6,7 @@ showcase some skills for a particular app challenge.
 To try out this sample app:
 * Use the latest stable version of [Android Studio](https://developer.android.com/studio). 
 * Clone the repository and import it.
-* Add local.properties with the API_KEY.
+* Add local.properties in main/premium with the API_KEY.
 
 ## Screenshots
 
