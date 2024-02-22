@@ -105,11 +105,16 @@ dependencies {
     // PAGING
     val pagingVersion = "3.2.1"
     implementation("androidx.paging:paging-runtime-ktx:$pagingVersion")
-    implementation("androidx.paging:paging-compose:3.2.1")
+    implementation("androidx.paging:paging-compose:$pagingVersion")
 
     // BIOMETRIC
     implementation("androidx.biometric:biometric:1.2.0-alpha05")
 
+
+    // TESTS
+    implementation("androidx.paging:paging-testing:$pagingVersion")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
+    // default libs
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -117,4 +122,8 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    // mockk
+    val mockkVersion = "1.13.9"
+    testImplementation("io.mockk:mockk:$mockkVersion")
 }

@@ -4,8 +4,9 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.technewsworks.data.datasource.api.HeadlinesApiService
 import com.example.technewsworks.data.models.Article
+import javax.inject.Inject
 
-class HeadlinesPagingSource(
+class HeadlinesPagingSource @Inject constructor(
     private val apiService: HeadlinesApiService,
 ): PagingSource<Int, Article>() {
     override fun getRefreshKey(state: PagingState<Int, Article>): Int? {

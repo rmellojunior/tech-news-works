@@ -9,7 +9,7 @@ import retrofit2.http.Query
 interface HeadlinesApiService {
     @GET("top-headlines")
     suspend fun getTopHeadlines(
-        @Query("page") page: Int,
+        @Query("page") page: Int = 1,
         @Query("pageSize") pageSize: Int = 10,
         @Query("country") country: String = CountryCode.UNITED_STATES.code,
     ): Response<NewsApiResponse>

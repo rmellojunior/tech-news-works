@@ -12,6 +12,7 @@ import javax.inject.Inject
 class HeadlinesRepo @Inject constructor(
     private val mockData: FakeNews,
     private val apiService: HeadlinesApiService,
+    private val pagingSource: HeadlinesPagingSource,
 ) {
     fun getTopHeadlines(
         pageSize: Int = 5,
@@ -21,7 +22,7 @@ class HeadlinesRepo @Inject constructor(
             prefetchDistance = 2,
         ),
         pagingSourceFactory = {
-            HeadlinesPagingSource(apiService)
+            pagingSource
         }
     ).flow
 }
