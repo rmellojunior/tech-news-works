@@ -3,6 +3,8 @@
 
     <string name="home_provider">News Api</string>
     <string name="home_label">Top headlines for you</string>
+    <string name="home_no_news">No news found</string>
+    <string name="home_error_news">Try Again</string>
 
     <!--  CARD  -->
     <string name="card_title_format">%1$s - %2$s</string>

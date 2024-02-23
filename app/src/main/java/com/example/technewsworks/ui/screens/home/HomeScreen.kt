@@ -14,14 +14,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.technewsworks.R
 import com.example.technewsworks.data.datasource.mock.FakeNews
 import com.example.technewsworks.data.models.Article
-import com.example.technewsworks.ui.components.Loading
 import com.example.technewsworks.ui.components.NewsCard
+import com.example.technewsworks.ui.components.PagingEmptyItem
+import com.example.technewsworks.ui.components.PagingErrorItem
+import com.example.technewsworks.ui.components.PagingLoadingItem
 import com.example.technewsworks.ui.components.SimpleAppBar
 import com.example.technewsworks.ui.theme.TechNewsWorksTheme
 import com.example.technewsworks.ui.theme.pDimensions
@@ -45,8 +48,7 @@ fun HomeScreen(
             SimpleAppBar(title = stringResource(id = R.string.home_provider))
         },
     ) { innerPadding ->
-        if (articles.itemCount == 0) Loading(modifier = Modifier.fillMaxSize())
-        else HomePage(
+        HomePage(
             modifier = modifier.padding(innerPadding),
             topHeadlines = articles,
             onNewsClicked = { vm.navigation.toNewsDetail(it) },
@@ -76,12 +78,28 @@ fun HomePage(
             style = MaterialTheme.typography.titleMedium
         )
         LazyColumn {
+            item {
+                when (topHeadlines.loadState.refresh) {
+                    is LoadState.Loading -> PagingLoadingItem()
+                    is LoadState.Error -> {
+                        PagingErrorItem(onTryAgainClick = { topHeadlines.retry() })
+                    }
+                    is LoadState.NotLoading -> if (topHeadlines.itemCount < 1) PagingEmptyItem()
+                }
+            }
             items(topHeadlines.itemCount) { idx ->
                 val article = topHeadlines[idx] ?: Article()
                 NewsCard(
                     article = article,
                     onClick = { onNewsClicked(article) },
                 )
+            }
+            item {
+                when (topHeadlines.loadState.append) {
+                    is LoadState.Loading -> PagingLoadingItem()
+                    is LoadState.Error -> PagingErrorItem(onTryAgainClick = { topHeadlines.retry() })
+                    is LoadState.NotLoading -> Unit
+                }
             }
         }
     }
